@@ -1,4 +1,4 @@
-# Deltaforge example
+# Protoforge example
 
 This packs a (trivial) Python environment, containing a single pure Python
 package for demonstration reasons.
