@@ -9,11 +9,9 @@ version = "0.0.1"
 [dependencies]
 python = "3.11.*"
 humanize = "*"
-imod = "0.17.*"
-jupyter = "*"
 
 [tasks]
-# Make sure you have pixi-pack installed and Inno Setup.
 lockfile = "pixi update"
-pack = { cmd = "pixi-pack pack --output-file deltaforge.tar", depends-on = ["lockfile"] }
-create = { cmd = "iscc installer.iss", depends-on = ["pack"] }
+install-pixi-pack = "powershell -Command \"Invoke-WebRequest -Uri ('https://github.com/Quantco/pixi-pack/releases/download/' + (Invoke-RestMethod -Uri 'https://api.github.com/repos/Quantco/pixi-pack/releases/latest').tag_name + '/pixi-pack-x86_64-pc-windows-msvc.exe') -OutFile 'bin\\pixi-pack.exe'\""
+pack = { cmd = "pixi-pack pack --output-file deltaforge.tar", depends-on = ["lockfile", "install-pixi-pack"] }
+create = { cmd = "wix build deltaforge.wxs -ext WixToolset.UI.wixext", depends-on = ["pack"] }

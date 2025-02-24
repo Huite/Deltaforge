@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+     xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
+  <!-- Define product information -->
+  <Package Name="Deltaforge" 
+           Language="1033" 
+           Version="0.0.1" 
+           Manufacturer="Deltaforge" 
+           UpgradeCode="e2ec506b-a362-4321-8704-1bcb32c0ec54">
+    
+    <SummaryInformation Description="Deltaforge Installer Package"/>
+
+    <!-- Use maximum compression -->
+    <MajorUpgrade DowngradeErrorMessage="A newer version of Deltaforge is already installed." />
+    
+    <!-- Use maximum compression -->
+    <MediaTemplate EmbedCab="yes" CompressionLevel="high" />
+    
+    <!-- License agreement -->
+    <WixVariable Id="WixUILicenseRtf" Value="LICENSE.rtf" />
+    
+    <!-- Custom icon -->
+    <Icon Id="DeltaforgeIcon.ico" SourceFile="icons\deltaforge_icon.ico" />
+    <Property Id="ARPPRODUCTICON" Value="DeltaforgeIcon.ico" />
+
+    <!-- UI configuration -->
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
+    <ui:WixUI Id="WixUI_InstallDir" />
+
+    <!-- Define the directory structure using StandardDirectory -->
+    <StandardDirectory Id="LocalAppDataFolder">
+      <Directory Id="INSTALLFOLDER" Name="Deltaforge">
+        <!-- Program files will go here -->
+      </Directory>
+    </StandardDirectory>
+    
+    <StandardDirectory Id="ProgramMenuFolder">
+      <Directory Id="ApplicationProgramsFolder" Name="Deltaforge" />
+    </StandardDirectory>
+
+    <!-- Define the files to install -->
+    <DirectoryRef Id="INSTALLFOLDER">
+      <!-- License file -->
+      <Component Id="LicenseFile">
+        <File Id="LICENSE" Source="LICENSE" KeyPath="yes" />
+      </Component>
+      
+      <!-- Batch file -->
+      <Component Id="PromptBatchFile">
+        <File Id="DeltaforgePromptBat" Source="deltaforge_prompt.bat" KeyPath="yes" />
+      </Component>
+      
+      <!-- Icon file -->
+      <Component Id="IconFile">
+        <File Id="DeltaforgeIconFile" Source="icons\deltaforge_icon.ico" KeyPath="yes" />
+      </Component>
+      
+      <!-- Include the pixi-pack executable and tar file in the installer -->
+      <Component Id="PixiPackExe">
+        <File Id="PixiPackExe" Source="bin\pixi-pack.exe" KeyPath="yes" />
+      </Component>
+      <Component Id="DeltaforgeTar">
+        <File Id="DeltaforgeTar" Source="deltaforge.tar" KeyPath="yes" />
+      </Component>
+
+      <Component Id="InstallerScriptFile">
+        <File Id="InstallScript" Source="install_script.bat" KeyPath="yes" />
+      </Component>
+
+    </DirectoryRef>
+
+    <!-- Define the shortcut in the Start Menu -->
+    <DirectoryRef Id="ApplicationProgramsFolder">
+      <Component Id="ApplicationShortcut">
+        <Shortcut Id="ApplicationStartMenuShortcut" 
+                  Name="Deltaforge Prompt" 
+                  Description="Opens Deltaforge environment prompt"
+                  Target="[System64Folder]cmd.exe"
+                  Arguments="/k &quot;[INSTALLFOLDER]deltaforge_prompt.bat&quot;"
+                  WorkingDirectory="INSTALLFOLDER"
+                  Icon="DeltaforgeIcon.ico" />
+        <RemoveFolder Id="CleanUpShortCut" Directory="ApplicationProgramsFolder" On="uninstall" />
+        <RegistryValue Root="HKCU" Key="Software\Deltaforge" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+
+    <!-- Define uninstall -->
+    <DirectoryRef Id="INSTALLFOLDER">
+      <Component Id="RemoveInstallFolder">
+        <RemoveFile Id="RemoveActivateBat" Name="activate.bat" On="uninstall" />
+        <RemoveFolder Id="RemoveDeltaforgeFolder" On="uninstall" />
+        <RegistryValue Root="HKCU" Key="Software\Deltaforge" Name="cleanup" Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+    </DirectoryRef>
+
+    <CustomAction Id="RunPixiPack" 
+                  FileRef="InstallScript"
+                  ExeCommand=""
+                  Execute="commit"
+                  Return="check" />
+      
+    <InstallExecuteSequence>
+      <Custom Action="RunPixiPack" After="InstallFiles" Condition="NOT Installed" />
+    </InstallExecuteSequence>
+
+    <!-- Define which components to install -->
+    <Feature Id="ProductFeature" Title="Deltaforge" Level="1">
+      <ComponentRef Id="LicenseFile" />
+      <ComponentRef Id="PromptBatchFile" />
+      <ComponentRef Id="IconFile" />
+      <ComponentRef Id="PixiPackExe" />
+      <ComponentRef Id="DeltaforgeTar" />
+      <ComponentRef Id="InstallerScriptFile" />
+      <ComponentRef Id="ApplicationShortcut" />
+      <ComponentRef Id="RemoveInstallFolder" />
+    </Feature>
+  </Package>
+</Wix>

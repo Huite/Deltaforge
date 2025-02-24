@@ -3,26 +3,24 @@
 This packs a (trivial) Python environment, containing a single pure Python
 package for demonstration reasons.
 
-This wraps pixi-pack and the environment .tar it creates with an Inno Setup
+This wraps pixi-pack and the environment .tar it creates with a WiX MSI
 installer.
 
 pixi-pack: https://github.com/Quantco/pixi-pack
 
-Inno Setup: https://jrsoftware.org/isinfo.php
-
-pixi-pack can be installed via pixi: 
+pixi-pack can be installed via a pixi task: 
 
 ```
-pixi global install pixi-pack
+pixi run install-pixi-pack
 ```
 
-Inno Setup can be installed via scoop: 
+This will download the latest pixi-pack release from GitHub.
+
+The WiX toolset can be installed via scoop: 
 
 ```
-scoop bucket add extras
-scoop install extras/inno-setup
+scoop instalwixtoolset
 ```
 
-Download the pixi-pack ``.exe`` from their [Github Releases
-page](https://github.com/Quantco/pixi-pack/releases), and put it in the
-``./bin`` folder.
+This will install a modern WiX toolset, version 5.
+
