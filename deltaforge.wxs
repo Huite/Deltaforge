@@ -67,6 +67,10 @@
         <File Id="InstallScript" Source="install_script.bat" KeyPath="yes" />
       </Component>
 
+      <Component Id="CleanupScriptFile">
+        <File Id="CleanupScript" Source="cleanup_script.bat" KeyPath="yes"/>
+      </Component>
+
     </DirectoryRef>
 
     <!-- Define the shortcut in the Start Menu -->
@@ -98,9 +102,17 @@
                   ExeCommand=""
                   Execute="commit"
                   Return="check" />
-      
+
+    <CustomAction Id="RunUninstallScript" 
+                  FileRef="CleanupScript"
+                  ExeCommand=""
+                  Execute="deferred"
+                  Return="ignore"
+                  Impersonate="no"/>
+
     <InstallExecuteSequence>
       <Custom Action="RunPixiPack" After="InstallFiles" Condition="NOT Installed" />
+      <Custom Action="RunUninstallScript" Before="RemoveFiles" Condition="REMOVE=&quot;ALL&quot;" />
     </InstallExecuteSequence>
 
     <!-- Define which components to install -->
@@ -111,6 +123,7 @@
       <ComponentRef Id="PixiPackExe" />
       <ComponentRef Id="DeltaforgeTar" />
       <ComponentRef Id="InstallerScriptFile" />
+      <ComponentRef Id="CleanupScriptFile" />
       <ComponentRef Id="ApplicationShortcut" />
       <ComponentRef Id="RemoveInstallFolder" />
     </Feature>
