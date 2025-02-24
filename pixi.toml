@@ -7,8 +7,10 @@ platforms = ["win-64"]
 version = "0.0.1"
 
 [dependencies]
-python = "3.12.*"
+python = "3.11.*"
 humanize = "*"
+imod = "0.17.*"
+jupyter = "*"
 
 [tasks]
 # Make sure you have pixi-pack installed and Inno Setup.

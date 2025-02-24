@@ -1,7 +1,7 @@
 [Setup]
 AppName=Deltaforge
 AppVersion=0.0.1
-DefaultDirName={autopf}\Deltaforge
+DefaultDirName={localappdata}\Deltaforge
 DisableProgramGroupPage=no
 OutputDir=installer
 OutputBaseFilename=deltaforge
@@ -19,7 +19,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Files]
 ; The pixi-pack executable - in a temp directory that will be removed
-Source: "Z:/bin/pixi-pack.exe"; DestDir: "{tmp}"; Flags: ignoreversion deleteafterinstall
+Source: ".\bin\pixi-pack.exe"; DestDir: "{tmp}"; Flags: ignoreversion deleteafterinstall
 ; The packed environment
 Source: "deltaforge.tar"; DestDir: "{tmp}"; Flags: ignoreversion deleteafterinstall
 ; Any additional files like README, LICENSE, etc.
