@@ -18,7 +18,13 @@
     
     <!-- License agreement -->
     <WixVariable Id="WixUILicenseRtf" Value="LICENSE.rtf" />
-    
+
+    <!-- Custom background bitmap -->
+    <WixVariable Id="WixUIDialogBmp" Value="icons\dialog_welcome.bmp" />
+
+    <!-- Custom top banner bitmap -->
+    <WixVariable Id="WixUIBannerBmp" Value="icons\top_banner.bmp" />
+
     <!-- Custom icon -->
     <Icon Id="DeltaforgeIcon.ico" SourceFile="icons\deltaforge_icon.ico" />
     <Property Id="ARPPRODUCTICON" Value="DeltaforgeIcon.ico" />
