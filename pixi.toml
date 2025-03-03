@@ -9,6 +9,7 @@ version = "0.0.1"
 [dependencies]
 python = "3.11.*"
 humanize = "*"
+# imod = "*"
 
 [tasks]
 lockfile = "pixi update"
