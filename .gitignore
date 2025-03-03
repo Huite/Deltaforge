@@ -8,3 +8,4 @@ installer/*
 *.tar
 *.msi
 *.wixpdb
+.wix/*
