@@ -53,7 +53,7 @@
       
       <!-- Batch file -->
       <Component Id="PromptBatchFile">
-        <File Id="DeltaforgePromptBat" Source="deltaforge_prompt.bat" KeyPath="yes" />
+        <File Id="DeltaforgePromptBat" Source="scripts\deltaforge_prompt.bat" KeyPath="yes" />
       </Component>
       
       <!-- Icon file -->
@@ -70,15 +70,15 @@
       </Component>
 
       <Component Id="InstallerScriptFile">
-        <File Id="InstallScript" Source="install_script.bat" KeyPath="yes" />
+        <File Id="InstallScript" Source="scripts\install_script.bat" KeyPath="yes" />
       </Component>
 
       <Component Id="PostInstallScriptFile">
-        <File Id="PostInstallScript" Source="post_install_script.bat" KeyPath="yes"/>
+        <File Id="PostInstallScript" Source="scripts\post_install_script.bat" KeyPath="yes"/>
       </Component>
 
       <Component Id="CleanupScriptFile">
-        <File Id="CleanupScript" Source="cleanup_script.bat" KeyPath="yes"/>
+        <File Id="CleanupScript" Source="scripts\cleanup_script.bat" KeyPath="yes"/>
       </Component>
 
     </DirectoryRef>
