@@ -73,6 +73,10 @@
         <File Id="InstallScript" Source="install_script.bat" KeyPath="yes" />
       </Component>
 
+      <Component Id="PostInstallScriptFile">
+        <File Id="PostInstallScript" Source="post_install_script.bat" KeyPath="yes"/>
+      </Component>
+
       <Component Id="CleanupScriptFile">
         <File Id="CleanupScript" Source="cleanup_script.bat" KeyPath="yes"/>
       </Component>
@@ -109,6 +113,12 @@
                   Execute="commit"
                   Return="check" />
 
+    <CustomAction Id="RunPostInstallScript" 
+                  FileRef="PostInstallScript"
+                  ExeCommand=""
+                  Execute="commit"
+                  Return="check" />
+
     <CustomAction Id="RunUninstallScript" 
                   FileRef="CleanupScript"
                   ExeCommand=""
@@ -118,6 +128,7 @@
 
     <InstallExecuteSequence>
       <Custom Action="RunPixiPack" After="InstallFiles" Condition="NOT Installed" />
+      <Custom Action="RunPostInstallScript" After="RunPixiPack" />
       <Custom Action="RunUninstallScript" Before="RemoveFiles" Condition="REMOVE=&quot;ALL&quot;" />
     </InstallExecuteSequence>
 
@@ -129,6 +140,7 @@
       <ComponentRef Id="PixiPackExe" />
       <ComponentRef Id="DeltaforgeTar" />
       <ComponentRef Id="InstallerScriptFile" />
+      <ComponentRef Id="PostInstallScriptFile" />
       <ComponentRef Id="CleanupScriptFile" />
       <ComponentRef Id="ApplicationShortcut" />
       <ComponentRef Id="RemoveInstallFolder" />
