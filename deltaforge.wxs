@@ -73,10 +73,6 @@
         <File Id="InstallScript" Source="scripts\install_script.bat" KeyPath="yes" />
       </Component>
 
-      <Component Id="PostInstallScriptFile">
-        <File Id="PostInstallScript" Source="scripts\post_install_script.bat" KeyPath="yes"/>
-      </Component>
-
       <Component Id="CleanupScriptFile">
         <File Id="CleanupScript" Source="scripts\cleanup_script.bat" KeyPath="yes"/>
       </Component>
@@ -101,7 +97,7 @@
     <!-- Define uninstall -->
     <DirectoryRef Id="INSTALLFOLDER">
       <Component Id="RemoveInstallFolder">
-        <RemoveFile Id="RemoveActivateBat" Name="activate.bat" On="uninstall" />
+        <RemoveFile Id="RemoveActivateBat" Name="activate_abspaths.bat" On="uninstall" />
         <RemoveFolder Id="RemoveDeltaforgeFolder" On="uninstall" />
         <RegistryValue Root="HKCU" Key="Software\Deltaforge" Name="cleanup" Type="integer" Value="1" KeyPath="yes" />
       </Component>
@@ -109,12 +105,6 @@
 
     <CustomAction Id="RunPixiPack" 
                   FileRef="InstallScript"
-                  ExeCommand=""
-                  Execute="commit"
-                  Return="check" />
-
-    <CustomAction Id="RunPostInstallScript" 
-                  FileRef="PostInstallScript"
                   ExeCommand=""
                   Execute="commit"
                   Return="check" />
@@ -128,7 +118,6 @@
 
     <InstallExecuteSequence>
       <Custom Action="RunPixiPack" After="InstallFiles" Condition="NOT Installed" />
-      <Custom Action="RunPostInstallScript" After="RunPixiPack" />
       <Custom Action="RunUninstallScript" Before="RemoveFiles" Condition="REMOVE=&quot;ALL&quot;" />
     </InstallExecuteSequence>
 
@@ -140,7 +129,6 @@
       <ComponentRef Id="PixiPackExe" />
       <ComponentRef Id="DeltaforgeTar" />
       <ComponentRef Id="InstallerScriptFile" />
-      <ComponentRef Id="PostInstallScriptFile" />
       <ComponentRef Id="CleanupScriptFile" />
       <ComponentRef Id="ApplicationShortcut" />
       <ComponentRef Id="RemoveInstallFolder" />
