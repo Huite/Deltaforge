@@ -22,8 +22,8 @@ The WiX toolset can be installed via scoop:
 scoop install wixtoolset
 ```
 
-This will install a modern WiX toolset, version 5. Consequently, you can need to
-install the UI extension.
+This will install a modern WiX toolset, version 5. Consequently, you need to
+install the UI extension to generate the installer wizards.
 
 ```
 wix extension add WixToolset.UI.wixext/5.0.2
