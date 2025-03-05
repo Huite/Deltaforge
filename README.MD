@@ -19,8 +19,12 @@ This will download the latest pixi-pack release from GitHub.
 The WiX toolset can be installed via scoop: 
 
 ```
-scoop instalwixtoolset
+scoop install wixtoolset
 ```
 
-This will install a modern WiX toolset, version 5.
+This will install a modern WiX toolset, version 5. Consequently, you need to
+install the UI extension to generate the installer wizards.
 
+```
+wix extension add WixToolset.UI.wixext/5.0.2
+```

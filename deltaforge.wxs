@@ -18,10 +18,16 @@
     
     <!-- License agreement -->
     <WixVariable Id="WixUILicenseRtf" Value="LICENSE.rtf" />
-    
+
+    <!-- Custom background bitmap -->
+    <WixVariable Id="WixUIDialogBmp" Value="icons\dialog_welcome.bmp" />
+
+    <!-- Custom top banner bitmap -->
+    <WixVariable Id="WixUIBannerBmp" Value="icons\top_banner.bmp" />
+
     <!-- Custom icon -->
-    <Icon Id="DeltaforgeIcon.ico" SourceFile="icons\deltaforge_icon.ico" />
-    <Property Id="ARPPRODUCTICON" Value="DeltaforgeIcon.ico" />
+    <Icon Id="DeltaforgeIcon" SourceFile="icons\deltaforge_icon.ico" />
+    <Property Id="ARPPRODUCTICON" Value="DeltaforgeIcon" />
 
     <!-- UI configuration -->
     <Property Id="WIXUI_INSTALLDIR" Value="INSTALLFOLDER" />
@@ -47,7 +53,7 @@
       
       <!-- Batch file -->
       <Component Id="PromptBatchFile">
-        <File Id="DeltaforgePromptBat" Source="deltaforge_prompt.bat" KeyPath="yes" />
+        <File Id="DeltaforgePromptBat" Source="scripts\deltaforge_prompt.bat" KeyPath="yes" />
       </Component>
       
       <!-- Icon file -->
@@ -64,11 +70,11 @@
       </Component>
 
       <Component Id="InstallerScriptFile">
-        <File Id="InstallScript" Source="install_script.bat" KeyPath="yes" />
+        <File Id="InstallScript" Source="scripts\install_script.bat" KeyPath="yes" />
       </Component>
 
       <Component Id="CleanupScriptFile">
-        <File Id="CleanupScript" Source="cleanup_script.bat" KeyPath="yes"/>
+        <File Id="CleanupScript" Source="scripts\cleanup_script.bat" KeyPath="yes"/>
       </Component>
 
     </DirectoryRef>
@@ -82,7 +88,7 @@
                   Target="[System64Folder]cmd.exe"
                   Arguments="/k &quot;[INSTALLFOLDER]deltaforge_prompt.bat&quot;"
                   WorkingDirectory="INSTALLFOLDER"
-                  Icon="DeltaforgeIcon.ico" />
+                  Icon="DeltaforgeIcon" />
         <RemoveFolder Id="CleanUpShortCut" Directory="ApplicationProgramsFolder" On="uninstall" />
         <RegistryValue Root="HKCU" Key="Software\Deltaforge" Name="installed" Type="integer" Value="1" KeyPath="yes" />
       </Component>
@@ -91,7 +97,7 @@
     <!-- Define uninstall -->
     <DirectoryRef Id="INSTALLFOLDER">
       <Component Id="RemoveInstallFolder">
-        <RemoveFile Id="RemoveActivateBat" Name="activate.bat" On="uninstall" />
+        <RemoveFile Id="RemoveActivateBat" Name="activate_abspaths.bat" On="uninstall" />
         <RemoveFolder Id="RemoveDeltaforgeFolder" On="uninstall" />
         <RegistryValue Root="HKCU" Key="Software\Deltaforge" Name="cleanup" Type="integer" Value="1" KeyPath="yes" />
       </Component>
